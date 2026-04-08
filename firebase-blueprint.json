@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and game statistics",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "highScore": { "type": "number" },
+        "totalScore": { "type": "number" },
+        "mistakes": { 
+          "type": "object",
+          "description": "Map of question IDs to mistake count"
+        },
+        "completedStages": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "Score": {
+      "title": "Score",
+      "description": "Leaderboard entry",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "score": { "type": "number" },
+        "stage": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "score", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Individual user data and stats"
+    },
+    "/leaderboard/{scoreId}": {
+      "schema": "Score",
+      "description": "Global leaderboard entries"
+    }
+  }
+}
